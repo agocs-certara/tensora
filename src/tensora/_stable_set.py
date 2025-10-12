@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-__all__ = ["StableSet", "StableFrozenSet"]
+__all__ = ["StableFrozenSet", "StableSet"]
 
 from typing import AbstractSet, Hashable, Iterator, MutableSet, TypeVar
 
@@ -10,7 +10,7 @@ Element = TypeVar("Element", bound=Hashable, covariant=True)
 class StableSet(MutableSet[Element]):
     def __init__(self, *items: Element):
         # Rely on stable dictionary
-        self._items = {item: None for item in items}
+        self._items = dict.fromkeys(items, None)
 
     def __len__(self) -> int:
         return len(self._items)
